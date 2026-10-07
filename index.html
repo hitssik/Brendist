@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Олег Григола — UX/UI & Product Designer</title>
+
+  <!--
+    1. ПІДКЛЮЧЕННЯ TAILWIND
+    Це "браузерна" збірка Tailwind v4: вона читає класи в HTML і прямо в браузері
+    генерує під них CSS. Для навчання й прототипів це ідеально.
+    У продакшні Tailwind збирають через CLI/Vite, щоб на сайт ішов лише готовий .css.
+  -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!--
+    2. ВЛАСНІ ТОКЕНИ ТА КОМПОНЕНТИ (CSS + Tailwind разом)
+    type="text/tailwindcss" означає: це звичайний CSS, але Tailwind його доповнить.
+    @theme — це твої дизайн-токени (як Variables у Figma). З кожного токена
+    Tailwind автоматично створює класи: --color-brand-500 → bg-brand-500, text-brand-500…
+  -->
+  <style type="text/tailwindcss">
+    @theme {
+      --color-brand-50:  #eef4ff;
+      --color-brand-100: #dbe6ff;
+      --color-brand-500: #4f6bff;
+      --color-brand-600: #3b54e6;
+      --color-brand-900: #1a2366;
+
+      --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    }
+
+    /*
+      @apply збирає кілька утиліт в один власний клас.
+      Корисно для елементів, що повторюються (як компонент у дизайн-системі).
+    */
+    @layer components {
+      .card {
+        @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm
+               transition hover:-translate-y-1 hover:shadow-lg
+               dark:border-slate-800 dark:bg-slate-900;
+      }
+      .tag {
+        @apply rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-600
+               dark:bg-brand-900/40 dark:text-brand-100;
+      }
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+</head>
+
+<!--
+  3. ЯК ЧИТАТИ КЛАСИ
+  Кожен клас — одна CSS-властивість:
+    bg-slate-50   → background-color
+    text-slate-900 → color
+    antialiased   → -webkit-font-smoothing
+  Префікс dark: вмикається, коли в системі темна тема (prefers-color-scheme: dark).
+-->
+<body class="bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- ===== HEADER ===== -->
+  <!--
+    sticky top-0 → position: sticky; top: 0
+    backdrop-blur → ефект "матового скла"
+    bg-white/70  → білий з прозорістю 70% (синтаксис /NN — це opacity)
+  -->
+  <header class="sticky top-0 z-10 border-b border-slate-200/70 bg-white/70 backdrop-blur dark:border-slate-800 dark:bg-slate-950/70">
+    <!--
+      max-w-5xl mx-auto → контейнер з максимальною шириною, по центру
+      flex items-center justify-between → Flexbox (як Auto Layout у Figma)
+    -->
+    <nav class="mx-auto flex max-w-5xl items-center justify-between px-4 py-4 sm:px-6">
+      <a href="#" class="text-lg font-bold tracking-tight">OH<span class="text-brand-500">.</span></a>
+
+      <!--
+        hidden md:flex → на мобільному сховано, від 768px (md) — flex.
+        Tailwind — mobile-first: клас без префікса діє завжди,
+        а sm: / md: / lg: додають стилі від певної ширини і більше.
+      -->
+      <ul class="hidden gap-8 text-sm font-medium text-slate-600 md:flex dark:text-slate-400">
+        <li><a href="#about" class="hover:text-brand-500">Про мене</a></li>
+        <li><a href="#focus" class="hover:text-brand-500">Напрями</a></li>
+        <li><a href="#experience" class="hover:text-brand-500">Досвід</a></li>
+      </ul>
+
+      <a href="#contact" class="rounded-full bg-slate-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-brand-500 dark:bg-white dark:text-slate-900 dark:hover:bg-brand-500 dark:hover:text-white">
+        Контакт
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== HERO ===== -->
+    <section class="mx-auto max-w-5xl px-4 pt-20 pb-24 sm:px-6 md:pt-32">
+      <p class="tag inline-block">Senior UX/UI · Product Designer</p>
+
+      <!--
+        Адаптивна типографіка: text-4xl на мобільному, md:text-6xl на десктопі.
+        text-balance → браузер рівномірно розбиває заголовок на рядки.
+      -->
+      <h1 class="mt-6 max-w-3xl text-4xl font-extrabold tracking-tight text-balance md:text-6xl">
+        Привіт! Я Олег Григола —
+        <!-- Градієнтний текст: фон-градієнт + "обрізати фон по тексту" -->
+        <span class="bg-gradient-to-r from-brand-500 to-violet-500 bg-clip-text text-transparent">
+          проєктую продукти</span>, якими зручно користуватися.
+      </h1>
+
+      <p class="mt-6 max-w-2xl text-lg text-slate-600 dark:text-slate-400">
+        Український UX/UI та Product-дизайнер з понад 10 роками досвіду в IT.
+        Зараз рухаюся в бік Design Engineering — там, де дизайн зустрічається з кодом.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="#focus" class="rounded-full bg-brand-500 px-6 py-3 font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-600">
+          Що я роблю
+        </a>
+        <a href="https://github.com/hitssik" class="rounded-full border border-slate-300 px-6 py-3 font-semibold transition hover:border-slate-900 dark:border-slate-700 dark:hover:border-white">
+          GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT / ЦИФРИ ===== -->
+    <section id="about" class="border-y border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+      <!--
+        CSS Grid: grid grid-cols-1 → одна колонка, sm:grid-cols-3 → три від 640px.
+        divide-y / sm:divide-x → лінії між дочірніми елементами.
+      -->
+      <div class="mx-auto grid max-w-5xl grid-cols-1 divide-y divide-slate-200 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-6 dark:divide-slate-800">
+        <div class="py-8 sm:px-6 sm:first:pl-0">
+          <p class="text-4xl font-extrabold text-brand-500">10+</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400">років в IT</p>
+        </div>
+        <div class="py-8 sm:px-6">
+          <p class="text-4xl font-extrabold text-brand-500">Senior</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400">UX/UI та Product Design</p>
+        </div>
+        <div class="py-8 sm:px-6">
+          <p class="text-4xl font-extrabold text-brand-500">3</p>
+          <p class="mt-1 text-slate-600 dark:text-slate-400">ключові напрями: mobile, SaaS, дизайн-системи</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOCUS AREAS ===== -->
+    <section id="focus" class="mx-auto max-w-5xl px-4 py-24 sm:px-6">
+      <h2 class="text-3xl font-bold tracking-tight">Чим я займаюся</h2>
+      <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">
+        Тут використано власний клас <code class="rounded bg-slate-200 px-1.5 py-0.5 text-sm dark:bg-slate-800">.card</code>,
+        зібраний через <code class="rounded bg-slate-200 px-1.5 py-0.5 text-sm dark:bg-slate-800">@apply</code> у &lt;head&gt;.
+      </p>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        <article class="card">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-2xl dark:bg-brand-900/40">📱</div>
+          <h3 class="mt-5 text-lg font-semibold">Мобільні застосунки</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">
+            Проєктування iOS та Android-інтерфейсів: від user flow до деталізованих екранів.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-2xl dark:bg-brand-900/40">🧩</div>
+          <h3 class="mt-5 text-lg font-semibold">SaaS-платформи</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">
+            Великі продукти зі складною логікою, дашбордами та багатьма ролями користувачів.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-2xl dark:bg-brand-900/40">🎨</div>
+          <h3 class="mt-5 text-lg font-semibold">Дизайн-системи</h3>
+          <p class="mt-2 text-slate-600 dark:text-slate-400">
+            Токени, компоненти та правила, що тримають продукт цілісним, — і в Figma, і в коді.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section id="experience" class="mx-auto max-w-5xl px-4 pb-24 sm:px-6">
+      <h2 class="text-3xl font-bold tracking-tight">Досвід</h2>
+
+      <!--
+        Таймлайн: border-l малює вертикальну лінію,
+        а кружечок — це absolute-елемент, зсунутий вліво (-left-[9px]).
+        Квадратні дужки [ ] — довільне значення, якого немає в шкалі Tailwind.
+      -->
+      <ol class="mt-10 space-y-10 border-l-2 border-slate-200 pl-8 dark:border-slate-800">
+        <li class="relative">
+          <span class="absolute top-1.5 -left-[41px] h-4 w-4 rounded-full border-4 border-slate-50 bg-brand-500 dark:border-slate-950"></span>
+          <h3 class="text-lg font-semibold">AMC Bridge</h3>
+          <p class="text-sm text-slate-500">UX/UI · Product Designer</p>
+        </li>
+        <li class="relative">
+          <span class="absolute top-1.5 -left-[41px] h-4 w-4 rounded-full border-4 border-slate-50 bg-slate-300 dark:border-slate-950 dark:bg-slate-700"></span>
+          <h3 class="text-lg font-semibold">Наступний крок — Design Engineering</h3>
+          <p class="text-sm text-slate-500">HTML, CSS, Tailwind і дизайн-системи в коді</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact" class="px-4 pb-24 sm:px-6">
+      <div class="mx-auto max-w-5xl rounded-3xl bg-slate-900 px-6 py-16 text-center text-white sm:px-12 dark:bg-brand-900">
+        <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Поговорімо про ваш продукт</h2>
+        <p class="mx-auto mt-4 max-w-xl text-slate-300">Відкритий до цікавих проєктів і співпраці.</p>
+        <a href="https://github.com/hitssik" class="mt-8 inline-block rounded-full bg-white px-6 py-3 font-semibold text-slate-900 transition hover:scale-105">
+          Написати мені
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 py-8 text-center text-sm text-slate-500 dark:border-slate-800">
+    © 2026 Oleh Hryhola · Зроблено з HTML + Tailwind CSS
+  </footer>
+</body>
+</html>
