@@ -6,53 +6,19 @@
   <title>Олег Григола — UX/UI & Product Designer</title>
 
   <!--
-    1. ПІДКЛЮЧЕННЯ TAILWIND
-    Це "браузерна" збірка Tailwind v4: вона читає класи в HTML і прямо в браузері
-    генерує під них CSS. Для навчання й прототипів це ідеально.
-    У продакшні Tailwind збирають через CLI/Vite, щоб на сайт ішов лише готовий .css.
+    1. ПІДКЛЮЧЕННЯ TAILWIND І REACT
+    Vite бере цей index.html як точку входу. src/main.tsx імпортує src/index.css,
+    де живуть Tailwind, дизайн-токени (@theme) та класи .card / .tag.
+    Під час збірки Tailwind генерує лише використані класи → маленький готовий .css.
   -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-  <!--
-    2. ВЛАСНІ ТОКЕНИ ТА КОМПОНЕНТИ (CSS + Tailwind разом)
-    type="text/tailwindcss" означає: це звичайний CSS, але Tailwind його доповнить.
-    @theme — це твої дизайн-токени (як Variables у Figma). З кожного токена
-    Tailwind автоматично створює класи: --color-brand-500 → bg-brand-500, text-brand-500…
-  -->
-  <style type="text/tailwindcss">
-    @theme {
-      --color-brand-50:  #eef4ff;
-      --color-brand-100: #dbe6ff;
-      --color-brand-500: #4f6bff;
-      --color-brand-600: #3b54e6;
-      --color-brand-900: #1a2366;
-
-      --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-    }
-
-    /*
-      @apply збирає кілька утиліт в один власний клас.
-      Корисно для елементів, що повторюються (як компонент у дизайн-системі).
-    */
-    @layer components {
-      .card {
-        @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm
-               transition hover:-translate-y-1 hover:shadow-lg
-               dark:border-slate-800 dark:bg-slate-900;
-      }
-      .tag {
-        @apply rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-600
-               dark:bg-brand-900/40 dark:text-brand-100;
-      }
-    }
-  </style>
+  <script type="module" src="/src/main.tsx"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 </head>
 
 <!--
-  3. ЯК ЧИТАТИ КЛАСИ
+  2. ЯК ЧИТАТИ КЛАСИ
   Кожен клас — одна CSS-властивість:
     bg-slate-50   → background-color
     text-slate-900 → color
@@ -150,7 +116,7 @@
       <h2 class="text-3xl font-bold tracking-tight">Чим я займаюся</h2>
       <p class="mt-3 max-w-2xl text-slate-600 dark:text-slate-400">
         Тут використано власний клас <code class="rounded bg-slate-200 px-1.5 py-0.5 text-sm dark:bg-slate-800">.card</code>,
-        зібраний через <code class="rounded bg-slate-200 px-1.5 py-0.5 text-sm dark:bg-slate-800">@apply</code> у &lt;head&gt;.
+        зібраний через <code class="rounded bg-slate-200 px-1.5 py-0.5 text-sm dark:bg-slate-800">@apply</code> у <code class="rounded bg-slate-200 px-1.5 py-0.5 text-sm dark:bg-slate-800">src/index.css</code>.
       </p>
 
       <div class="mt-12 grid gap-6 md:grid-cols-3">
@@ -202,6 +168,11 @@
         </li>
       </ol>
     </section>
+
+    <!-- ===== COMPONENTS (React) =====
+      Цей контейнер заповнює React (src/App.tsx) — демо компонента Button.
+    -->
+    <div id="root"></div>
 
     <!-- ===== CONTACT ===== -->
     <section id="contact" class="px-4 pb-24 sm:px-6">
