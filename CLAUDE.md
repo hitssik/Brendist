@@ -21,10 +21,10 @@ The goal is to progressively develop this repository into a maintainable React a
 - Dark mode using Tailwind dark variants
 - ESLint (typescript-eslint, react-hooks) and TypeScript type checking
 - Git and GitHub
+- GitHub Actions: lint + build on PRs, deploy of `dist/` to GitHub Pages on `main`
 
 ### Not yet configured
 - Automated testing
-- GitHub Pages deployment of the Vite build (`dist/`)
 
 ### Planned development stack
 - Migrate the remaining static sections of index.html to React components
@@ -51,6 +51,7 @@ Brendist/
 ├── vite.config.ts
 ├── tsconfig.json
 ├── eslint.config.js
+├── .github/workflows/deploy.yml  # CI + GitHub Pages deploy
 └── src/
     ├── main.tsx        # mounts React into `#root`
     ├── App.tsx         # Button demo section
