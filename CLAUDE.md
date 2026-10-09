@@ -11,28 +11,30 @@ The goal is to progressively develop this repository into a maintainable React a
 ## Tech Stack
 
 ### Currently implemented
-- HTML5
-- Tailwind CSS v4 via browser CDN
-- CSS custom properties through Tailwind @theme
+- HTML5 (static portfolio markup in index.html)
+- React 19 with TypeScript, mounted into `#root` inside index.html
+- Vite as dev server and bundler
+- Tailwind CSS v4 via `@tailwindcss/vite`
+- CSS custom properties through Tailwind @theme (src/index.css)
 - Google Fonts (Inter)
 - Responsive layouts using Flexbox and CSS Grid
 - Dark mode using Tailwind dark variants
+- ESLint (typescript-eslint, react-hooks) and TypeScript type checking
 - Git and GitHub
+- GitHub Actions: lint + build on PRs, deploy of `dist/` to GitHub Pages on `main`
 
 ### Not yet configured
-- React
-- TypeScript
-- Vite
-- Node.js package management
 - Automated testing
-- Linting and type checking
 
 ### Planned development stack
-- React with TypeScript
-- Vite
-- Tailwind CSS v4 using a build integration
-- ESLint
+- Migrate the remaining static sections of index.html to React components
 - Component testing when the project requires it
+
+### Commands
+- `npm run dev` — local dev server
+- `npm run typecheck` — TypeScript check
+- `npm run lint` — ESLint
+- `npm run build` — typecheck + production build to `dist/`
 
 Do not assume planned technologies are already installed.
 
@@ -43,26 +45,28 @@ Current confirmed files:
 Brendist/
 ├── README.md
 ├── ABOUT.md
-└── index.html
+├── CLAUDE.md
+├── index.html          # Vite entry; static portfolio sections + `#root`
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+├── eslint.config.js
+├── .github/workflows/deploy.yml  # CI + GitHub Pages deploy
+└── src/
+    ├── main.tsx        # mounts React into `#root`
+    ├── App.tsx         # Button demo section
+    ├── index.css       # Tailwind import, @theme tokens, .card / .tag
+    └── components/
+        └── ui/
+            └── Button.tsx
 
 ### File responsibilities
 
 - README.md: project introduction and designer profile.
 - ABOUT.md: bilingual professional biography.
-- index.html: current landing page, layout, design tokens, and styling.
-
-### Proposed structure after React migration
-
-src/
-├── components/
-│   └── ui/
-│       └── Button.tsx
-├── App.tsx
-├── main.tsx
-└── index.css
-
-The proposed structure is not yet implemented.
-Adapt it to the existing project before creating files.
+- index.html: static portfolio sections (layout and content) and the React mount point.
+- src/index.css: Tailwind setup, design tokens, and shared component classes.
+- src/components/ui/: reusable UI components.
 
 ## Code Conventions
 

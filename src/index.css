@@ -1,0 +1,37 @@
+/*
+  TAILWIND ЧЕРЕЗ ЗБІРКУ (Vite)
+  Раніше Tailwind працював через CDN-скрипт у браузері.
+  Тепер плагін @tailwindcss/vite під час збірки сканує index.html і src/**
+  та генерує лише ті класи, що реально використані → маленький готовий .css.
+*/
+@import "tailwindcss";
+
+/*
+  ВЛАСНІ ТОКЕНИ (як Variables у Figma).
+  З кожного токена Tailwind створює класи: --color-brand-500 → bg-brand-500, text-brand-500…
+*/
+@theme {
+  --color-brand-50:  #eef4ff;
+  --color-brand-100: #dbe6ff;
+  --color-brand-500: #4f6bff;
+  --color-brand-600: #3b54e6;
+  --color-brand-900: #1a2366;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+  @apply збирає кілька утиліт в один власний клас.
+  Корисно для елементів, що повторюються (як компонент у дизайн-системі).
+*/
+@layer components {
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white p-6 shadow-sm
+           transition hover:-translate-y-1 hover:shadow-lg
+           dark:border-slate-800 dark:bg-slate-900;
+  }
+  .tag {
+    @apply rounded-full bg-brand-50 px-3 py-1 text-sm font-medium text-brand-600
+           dark:bg-brand-900/40 dark:text-brand-100;
+  }
+}
